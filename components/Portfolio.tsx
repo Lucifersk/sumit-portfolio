@@ -11,6 +11,7 @@ import {
   BriefcaseBusiness,
   CheckCircle2,
   ChevronRight,
+  Clock3,
   Code2,
   Download,
   Github,
@@ -20,7 +21,9 @@ import {
   Mail,
   Menu,
   MessageSquareText,
+  Phone,
   Send,
+  ShieldCheck,
   Smartphone,
   Sparkles,
   X,
@@ -264,9 +267,10 @@ export default function Portfolio() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const subject = encodeURIComponent(`Portfolio enquiry from ${String(form.get("name"))}`);
+    const topic = String(form.get("topic"));
+    const subject = encodeURIComponent(`${topic} — portfolio enquiry from ${String(form.get("name"))}`);
     const body = encodeURIComponent(
-      `From: ${String(form.get("name"))} (${String(form.get("email"))})\n\n${String(form.get("message"))}`,
+      `From: ${String(form.get("name"))} (${String(form.get("email"))})\nTopic: ${topic}\n\n${String(form.get("message"))}`,
     );
     setSent(true);
     window.location.href = `mailto:sk8235499@gmail.com?subject=${subject}&body=${body}`;
@@ -562,6 +566,9 @@ export default function Portfolio() {
               <a href="mailto:sk8235499@icloud.com" className="contact-line">
                 <span><Mail /></span><div><small>ALTERNATE EMAIL</small><strong>sk8235499@icloud.com</strong></div><ArrowUpRight />
               </a>
+              <a href="tel:+917210624270" className="contact-line">
+                <span><Phone /></span><div><small>CALL ME</small><strong>+91 72106 24270</strong></div><ArrowUpRight />
+              </a>
               <a href="https://www.linkedin.com/in/sumitkumar-066a59326" target="_blank" rel="noreferrer" className="contact-line">
                 <span><Linkedin /></span><div><small>CONNECT</small><strong>LinkedIn</strong></div><ArrowUpRight />
               </a>
@@ -570,17 +577,26 @@ export default function Portfolio() {
               </a>
               <div className="availability-card">
                 <span className="status-dot" />
-                <div><strong>Available for opportunities</strong><p>Based in India · Open to remote</p></div>
+                <div><strong>Open to internships &amp; collaborations</strong><p>Based in India · Open to remote opportunities</p></div>
               </div>
             </motion.div>
             <motion.form className="contact-form" onSubmit={handleSubmit} {...reveal}>
-              <div className="form-top"><MessageSquareText /><span>START A CONVERSATION</span></div>
+              <div className="form-top"><MessageSquareText /><span>START A CONVERSATION</span><em><Clock3 /> Usually replies within 24 hours</em></div>
               <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
               <label>Email<input type="email" name="email" placeholder="you@company.com" required /></label>
+              <label>What&apos;s this about?
+                <select name="topic" defaultValue="Project or collaboration">
+                  <option>Project or collaboration</option>
+                  <option>Internship or job opportunity</option>
+                  <option>Freelance work</option>
+                  <option>Just saying hello</option>
+                </select>
+              </label>
               <label>Message<textarea name="message" rows={5} placeholder="Tell me about your project, role, or idea..." required /></label>
               <button className="button button-primary" type="submit">
                 {sent ? <>Ready in your mail app <CheckCircle2 size={17} /></> : <>Send message <Send size={17} /></>}
               </button>
+              <p className="form-note"><ShieldCheck /> Your details stay private. This opens your email app with the message ready to send.</p>
             </motion.form>
           </div>
         </div>
